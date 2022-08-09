@@ -22,7 +22,13 @@ public class RestRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
 //        RestTemplate restTemplate = restTemplateBuilder.build();
+
+//        WebClient webClient = builder
+//                .baseUrl("http://localhost:8080")
+//                .build();
+        
         WebClient webClient = builder.build();
+
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -33,7 +39,7 @@ public class RestRunner implements ApplicationRunner {
 //        String worldResult = restTemplate.getForObject("http://localhost:8080/world", String.class);
 //        System.out.println(worldResult);
 
-        Mono<String> helloMono = webClient.get().uri("http://localhost:8080/hello")
+        Mono<String> helloMono = webClient.get().uri("/hello")
                 .retrieve()
                 .bodyToMono(String.class);
 
@@ -48,7 +54,7 @@ public class RestRunner implements ApplicationRunner {
             stopWatch.start();
         });
 
-        Mono<String> worldMono = webClient.get().uri("http://localhost:8080/world")
+        Mono<String> worldMono = webClient.get().uri("/world")
                 .retrieve()
                 .bodyToMono(String.class);
 
